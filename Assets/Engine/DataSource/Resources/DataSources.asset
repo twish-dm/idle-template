@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad5a330ad1a88c4db22b52de92c534d, type: 3}
+  m_Name: DataSources
+  m_EditorClassIdentifier: 
+  m_Prefabs:
+  - <Name>k__BackingField: CheckGA1
+    m_Prefab: {fileID: 2850000324252263314, guid: 3d8905d1e5b36784db467bec97e097ce, type: 3}
+  - <Name>k__BackingField: CheckGA2
+    m_Prefab: {fileID: 2850000324252263314, guid: 3d8905d1e5b36784db467bec97e097ce, type: 3}
+  - <Name>k__BackingField: CheckGA3
+    m_Prefab: {fileID: 2850000324252263314, guid: 3d8905d1e5b36784db467bec97e097ce, type: 3}
+  - <Name>k__BackingField: CheckGA4
+    m_Prefab: {fileID: 2850000324252263314, guid: 3d8905d1e5b36784db467bec97e097ce, type: 3}
+  m_Materials:
+  - <Name>k__BackingField: CheckMat1
+    m_Material: {fileID: 2100000, guid: 1cf7733d69ca7af4ba14aee83680df66, type: 2}
+  - <Name>k__BackingField: CheckMat2
+    m_Material: {fileID: 2100000, guid: 1cf7733d69ca7af4ba14aee83680df66, type: 2}
+  - <Name>k__BackingField: CheckMat3
+    m_Material: {fileID: 2100000, guid: 1cf7733d69ca7af4ba14aee83680df66, type: 2}
+  - <Name>k__BackingField: Check2Mat1
+    m_Material: {fileID: 2100000, guid: 1cf7733d69ca7af4ba14aee83680df66, type: 2}
+  - <Name>k__BackingField: Check2Mat2
+    m_Material: {fileID: 2100000, guid: 1cf7733d69ca7af4ba14aee83680df66, type: 2}
+  - <Name>k__BackingField: Check2Mat3
+    m_Material: {fileID: 2100000, guid: 1cf7733d69ca7af4ba14aee83680df66, type: 2}
+  m_Sprites: []
+  m_Textures: []
+  m_AudioClips: []
