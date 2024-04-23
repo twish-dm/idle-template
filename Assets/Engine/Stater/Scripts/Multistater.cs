@@ -12,10 +12,9 @@ namespace Engine
 						ApplyState(m_StateMap.First());
 						
 				}
-
 				virtual public StateBase ApplyState(string stateName)
 				{
-						CurrentState = m_StateMap.GetState(stateName);
+						ApplyState(m_StateMap.GetState(stateName));
 						return CurrentState;
 				}
 		}

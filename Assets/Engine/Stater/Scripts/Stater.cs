@@ -21,41 +21,48 @@ namespace Engine
 				virtual protected StateBase ApplyState(StateBase state)
 				{
 						m_CurrentState?.Exit();
-						m_CurrentState = state;
-						m_CurrentState.Enter(this);
+						_CurrentState = m_CurrentState = state;
+						m_CurrentState?.Enter(this);
+						Debug.Log($"Enter state '{m_CurrentState}'");
+						if (m_CurrentState && !m_CurrentState.isInitialized)
+						{
+								m_CurrentState.Init();
+								Debug.Log($"Init state '{m_CurrentState}'");
+						}
+						Debug.Log($"isInited  '{m_CurrentState.isInitialized}'");
 						return m_CurrentState;
 				}
 				virtual protected void Start()
 				{
-						CurrentState?.Start();
+						if (CurrentState != null) CurrentState.Start();
 				}
 				virtual protected void Awake()
 				{
-						CurrentState?.Init();
+						
 				}
 				virtual protected void OnEnable()
 				{
-						CurrentState?.Enable();
+						if (CurrentState != null) CurrentState?.Enable();
 				}
 				virtual protected void OnDisable()
 				{
-						CurrentState?.Disable();
+						if (CurrentState != null) CurrentState.Disable();
 				}
 				virtual protected void OnDestroy()
 				{
-						CurrentState?.Destroy();
+						if (CurrentState != null) CurrentState.Destroy();
 				}
 				virtual protected void Update()
 				{
-						CurrentState?.Update();
+						if(CurrentState != null) CurrentState.Update();
 				}
 				virtual protected void FixedUpdate()
 				{
-						CurrentState?.FixedUpdate();
+						if (CurrentState != null) CurrentState.FixedUpdate();
 				}
 				virtual protected void LateUpdate()
 				{
-						CurrentState?.LateUpdate();
+						if (CurrentState != null) CurrentState.LateUpdate();
 				}
 				private void OnValidate()
 				{

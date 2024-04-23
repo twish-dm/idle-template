@@ -4,7 +4,12 @@ namespace Engine
 		abstract public class StateBase:ScriptableObject
 		{
 				abstract public void Enter(Stater stater);
-
+				private void OnEnable()
+				{
+						isInitialized = isCloned = false;
+				}
+				virtual public bool isInitialized { get; protected set; } = false;
+				virtual public bool isCloned { get; protected set; } = false;
 				virtual public void Exit()
 				{
 
@@ -12,7 +17,8 @@ namespace Engine
 
 				virtual public void Init()
 				{
-
+						isInitialized = true;
+						
 				}
 
 				virtual public void Start()
@@ -49,10 +55,13 @@ namespace Engine
 				{
 
 				}
-
-				virtual public StateBase Clone()
+				public StateBase Clone()
 				{
-						return Instantiate(this);
+						StateBase stateCloned = Instantiate(this);
+						stateCloned.isCloned = true;
+						stateCloned.isInitialized = false;
+						
+						return stateCloned;
 				}
 		}
 
@@ -64,7 +73,7 @@ namespace Engine
 				{
 						this.stater = (T1)stater;
 				}
-
+				
 
 		}
 }

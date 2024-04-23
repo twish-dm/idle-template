@@ -23,9 +23,13 @@ namespace Engine
 								m_StateMap.Add(m_StateList[i].Name, m_StateList[i].State);
 				}
 
-				public StateBase First() => m_StateList[0].State;
+				public StateBase First() => GetState(m_StateList[0].Name);
 				public StateBase GetState(string name)
 				{
+						if(!m_StateMap[name].isCloned)
+						{
+								m_StateMap[name] = m_StateMap[name].Clone();
+						}
 						return m_StateMap[name];
 				}
 		}

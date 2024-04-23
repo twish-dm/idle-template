@@ -8,9 +8,9 @@ using UnityEngine.Events;
 
 namespace Engine.Navigation
 {
-		public class EntityNavigate
+		public class Navigate
 		{
-				public EntityNavigate(float pathEndThreshold = 0.1f)
+				public Navigate(float pathEndThreshold = 0.1f)
 				{
 						m_Targets = new Queue<INavigationStep>();
 						m_PathEndThreshold = pathEndThreshold;
@@ -29,12 +29,12 @@ namespace Engine.Navigation
 				virtual public void Init<T>(T target) where T : MonoBehaviour
 				{
 						m_NavMeshAgent = target.GetComponent<NavMeshAgent>();
-						if (m_NavMeshAgent)
+						if (!m_NavMeshAgent)
 								throw new NullReferenceException($"'NavMeshAgent' not found");
 
 						m_NavMeshAgent.avoidancePriority = UnityEngine.Random.Range(0, int.MaxValue);
 						m_Parent = target;
-
+						
 				}
 
 				virtual public void ApplyTarget(INavigationStep target)
@@ -45,9 +45,19 @@ namespace Engine.Navigation
 						{
 								IsStart = true;
 								IsComplete = false;
+								m_HasPath = false;
 								m_MoveQueue = MoveQueue();
 								m_Parent.StartCoroutine(m_MoveQueue);
 						}
+				}
+				virtual public void Stop()
+				{
+						m_HasPath = false;
+						IsStart = false;
+						IsComplete = true;
+						m_Parent.StopCoroutine(m_MoveQueue);
+						m_MoveQueue = null;
+						OnComplete?.Invoke();
 				}
 				protected Vector3 GetNavMeshPoint(Vector3 point, float maxDistance = float.MaxValue)
 				{
@@ -62,15 +72,11 @@ namespace Engine.Navigation
 								target.StepStarted(m_Parent.gameObject);
 								OnStart?.Invoke();
 								yield return null;
-								yield return new WaitWhile(() => IsEndOfPath());
+								yield return new WaitUntil(() => IsEndOfPath());
 								target.StepReached(m_Parent.gameObject);
 								OnStep?.Invoke();
 						}
-						m_MoveQueue = null;
-						m_HasPath = false;
-						IsStart = false;
-						IsComplete = true;
-						OnComplete?.Invoke();
+						Stop();
 				}
 
 
@@ -81,7 +87,6 @@ namespace Engine.Navigation
 						m_HasPath |= m_NavMeshAgent.hasPath;
 						if (m_HasPath && m_NavMeshAgent.remainingDistance <= m_NavMeshAgent.stoppingDistance + m_PathEndThreshold)
 						{
-								// Arrived
 								m_HasPath = false;
 								return true;
 						}
